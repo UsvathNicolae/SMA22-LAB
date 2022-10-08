@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -47,10 +49,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     public void clicked(View view){
+        EditText eText = (EditText) findViewById(R.id.eName);
+        String s = "Hello , " + eText.getText();
         switch (view.getId()){
             case R.id.bClick:
-                EditText eText = (EditText) findViewById(R.id.eName);
-                String s = "Hello , " + eText.getText();
+
 
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
@@ -69,6 +72,29 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 });
                 dialog.show();
 
+                break;
+
+            case R.id.bShare:
+                Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                System.out.println(eText.getText());
+                String title = "Choose application";
+                String text = eText.getText().toString();
+                sendIntent.putExtra(Intent.EXTRA_TEXT,text);
+                sendIntent.setType("text/plain");
+                Intent chooser = Intent.createChooser(sendIntent, title);
+                if (sendIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(chooser);
+                }
+                break;
+
+            case R.id.bSearch:
+                String url = "https://www.google.com/search?q=" + eText.getText();
+                Intent viewIntent = new Intent(Intent.ACTION_VIEW);
+
+                viewIntent.setData(Uri.parse(url));
+                if (viewIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(viewIntent);
+                }
                 break;
             default: break;
         }

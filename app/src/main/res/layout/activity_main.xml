@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:onClick="clicked"
             android:text="Say hello"
-            android:textColor="#0000ff"/>
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
@@ -46,6 +46,32 @@
         android:gravity="center_horizontal"
         android:text="Hello there"
         android:textSize="20sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tName"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/bShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Share"
+            android:onClick="clicked"/>
+
+        <Button
+            android:id="@+id/bSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Search"
+            android:onClick="clicked"/>
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/randomButton"
