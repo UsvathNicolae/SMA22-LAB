@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity"
-    >
+    tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/eNameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/tName"
@@ -46,50 +46,81 @@
         android:gravity="center_horizontal"
         android:text="Hello there"
         android:textSize="20sp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tName"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:gravity="center_horizontal">
-
-        <Button
-            android:id="@+id/bShare"
-            android:layout_width="wrap_content"
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Share"
-            android:onClick="clicked"/>
+            android:layout_below="@+id/tName"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center_horizontal">
 
+           <Button
+                android:id="@+id/bShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Share"
+                android:onClick="clicked"/>
+
+            <Button
+                android:id="@+id/bSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Search"
+                android:onClick="clicked"/>
+
+        </LinearLayout>
+    -->
         <Button
-            android:id="@+id/bSearch"
-            android:layout_width="wrap_content"
+            android:id="@+id/randomButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Search"
-            android:onClick="clicked"/>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/randomButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:onClick="clicked"
-        android:text="Randomize"/>
+            android:layout_alignParentBottom="true"
+            android:onClick="clicked"
+            android:text="Randomize"/>
 
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/eNameLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="37dp" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/randomButton"
         android:layout_below="@+id/tName"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="165dp"
-        android:layout_marginTop="124dp"
-        android:layout_marginBottom="140dp" />
+        android:layout_marginStart="238dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="3dp"
+        app:fab_expandDirection="up"
+        app:fab_labelStyle="@style/LabelStyle"
+        app:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clicked"
+            app:fab_addButtonColorNormal="#FFF"
+            app:fab_size="mini"
+            app:fab_title="Search" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="clicked"
+            app:fab_addButtonColorNormal="#FFF"
+            app:fab_size="mini"
+            app:fab_title="Share" />
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </RelativeLayout>
