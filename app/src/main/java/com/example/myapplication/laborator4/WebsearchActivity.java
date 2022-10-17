@@ -1,13 +1,15 @@
-package com.example.myapplication;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.myapplication.laborator4;
 
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.myapplication.R;
+
+public class WebsearchActivity extends AppCompatActivity {
     private WebView myWebView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
