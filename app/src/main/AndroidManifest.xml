@@ -15,6 +15,14 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".intents.IntentFilterActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -27,6 +35,30 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-    </application>
 
+        <activity
+        android:name=".intents.MainIntentActivity"
+        android:exported="true">
+        <meta-data
+            android:name="android.app.lib_name"
+            android:value="" />
+     <!--   <intent-filter>
+            <action android:name="android.intent.action.VIEW"/>
+            <action android:name="MSA.LAUNCH"/>
+            <category android:name="android.intent.category.DEFAULT"/>
+            <data android:scheme="http"/>
+        </intent-filter>
+        -->
+    </activity>
+
+        <activity
+            android:name=".lifecycle.ActivityA"
+            android:exported="true" />
+        <activity
+            android:name=".lifecycle.ActivityB"
+            android:exported="false" />
+        <activity
+            android:name=".lifecycle.ActivityC"
+            android:exported="false" />
+    </application>
 </manifest>
