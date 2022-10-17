@@ -1,40 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity">
 
     <LinearLayout
         android:id="@+id/eNameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tName"
+        android:orientation="horizontal"
+        >
+        <EditText
+            android:id="@+id/eName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:hint="Your name"
+            android:textStyle="bold|italic"/>
+
+        <Button
+            android:id="@+id/bClick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="clicked"
+            android:text="Say hello"
+            android:textColor="#ffffff"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:background="#eeeeee"
+        android:gravity="center_horizontal"
+        android:text="Hello there"
+        android:textSize="20sp"/>
+    <!--
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tName"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center_horizontal">
+
+           <Button
+                android:id="@+id/bShare"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Share"
+                android:onClick="clicked"/>
+
+            <Button
+                android:id="@+id/bSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Search"
+                android:onClick="clicked"/>
+
+        </LinearLayout>
+    -->
+        <Button
+            android:id="@+id/randomButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:onClick="clicked"
+            android:text="Randomize"/>
+
+    <Spinner
+        android:id="@+id/spinner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_above="@+id/eNameLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="37dp" />
 
-        <Button
-            android:id="@+id/buttonA"
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/randomButton"
+        android:layout_below="@+id/tName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="238dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="3dp"
+        app:fab_expandDirection="up"
+        app:fab_labelStyle="@style/LabelStyle"
+        app:fab_labelsPosition="left">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="clicked"
-            android:text="Start A" />
+            app:fab_addButtonColorNormal="#FFF"
+            app:fab_size="mini"
+            app:fab_title="Search" />
 
-        <Button
-            android:id="@+id/buttonB"
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bShare"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="clicked"
-            android:text="Start B" />
+            app:fab_addButtonColorNormal="#FFF"
+            app:fab_size="mini"
+            app:fab_title="Share" />
 
-        <Button
-            android:id="@+id/buttonC"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="clicked"
-            android:text="Start C" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</RelativeLayout>
