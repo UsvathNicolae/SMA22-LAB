@@ -23,9 +23,9 @@ import java.sql.BatchUpdateException;
 
 public class BatteryMonitorActivity extends AppCompatActivity {
 
-    private static final String CHANNEL_ID = ;
     private String chargingStatus;
     private int notificationId;
+    public static final String CHANNEL_ID = "CHANNEL_ID";
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -59,7 +59,7 @@ public class BatteryMonitorActivity extends AppCompatActivity {
         int chargePlug = batteryStatus.getIntExtra(BatteryManager.EXTRA_PLUGGED,-1);
         boolean usbCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_USB;
         boolean acCharge = chargePlug == BatteryManager.BATTERY_PLUGGED_AC;
-
+        chargeInfo.setText("Is not Charging");
         if(isCharging){
             chargingStatus = "Is charging";
             if(usbCharge){
@@ -75,7 +75,8 @@ public class BatteryMonitorActivity extends AppCompatActivity {
         newIntent.putExtra("status", chargingStatus);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 , newIntent, 0);
 
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANEL_ID)
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("Charging status changed!")
                 .setContentText(chargingStatus)
