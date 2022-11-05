@@ -45,7 +45,7 @@
         android:background="#eeeeee"
         android:gravity="center_horizontal"
         android:text="Hello there"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
     <!--
         <LinearLayout
             android:layout_width="match_parent"
@@ -88,14 +88,16 @@
         android:layout_marginBottom="37dp" />
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="348dp"
+        android:layout_height="269dp"
         android:layout_above="@+id/randomButton"
         android:layout_below="@+id/tName"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="238dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="3dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="15dp"
         app:fab_expandDirection="up"
         app:fab_labelStyle="@style/LabelStyle"
         app:fab_labelsPosition="left">
