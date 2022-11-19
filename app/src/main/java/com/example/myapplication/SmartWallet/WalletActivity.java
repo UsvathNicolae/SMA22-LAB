@@ -15,10 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class SmartWalletMain extends AppCompatActivity {
-
-    private TextView tStatus;
-    private EditText eSearch, eIncome, eExpenses, eMonth;
+public class WalletActivity extends AppCompatActivity {
 
     private DatabaseReference databaseReference;
     private String currentMonth;
@@ -31,16 +28,16 @@ public class SmartWalletMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wallet);
 
-        entries = (TextView) findViewById(R.id.tStatus);
-        income = (EditText) findViewById(R.id.eIncome);
-        expenses = (EditText) findViewById(R.id.eExpenses);
-        searchRes = (EditText) findViewById(R.id.eMonth);
+        entries = findViewById(R.id.tStatus);
+        income =  findViewById(R.id.eIncome);
+        expenses =  findViewById(R.id.eExpenses);
+        searchRes =  findViewById(R.id.eSearch);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        databaseReference = database.getReference();
+        //FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //databaseReference = database.getReference();
     }
 
-    private  void createNewDBListener() {
+    /*private  void createNewDBListener() {
         if (databaseReference != null && currentMonth != null && databaseListener != null)
             databaseReference.child("calendar").child(currentMonth).removeEventListener(databaseListener);
         databaseListener = new ValueEventListener() {
@@ -63,6 +60,6 @@ public class SmartWalletMain extends AppCompatActivity {
         };
 
         databaseReference.child("calendar").child(currentMonth).addValueEventListener((ValueEventListener) databaseListener);
-    }
+    }*/
 
 }
