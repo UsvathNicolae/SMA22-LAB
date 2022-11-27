@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class WalletActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -34,6 +36,8 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner searchRes;
     private final static String PREFS_SETTINGS = "prefs_settings";
     private SharedPreferences prefsUser;
+    final List<MonthlyExpenses> monthlyExpenses = new ArrayList<>();
+    final List<String> monthNames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +51,9 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
             //expenses.setText(prefsUser.getString("expenses",""));
         //}
 
-
         searchRes = findViewById(R.id.eSearch);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource( this, R.array.months, android.R.layout.simple_spinner_item);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, monthNames);
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         searchRes.setAdapter(adapter);
         searchRes.setOnItemSelectedListener(this);
@@ -57,9 +61,26 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
         entries = findViewById(R.id.tStatus);
         income =  findViewById(R.id.eIncome);
         expenses =  findViewById(R.id.eExpenses);
-        //searchRes =  findViewById(R.id.eSearch);
 
          databaseReference= FirebaseDatabase.getInstance().getReference();
+
+        databaseReference./**/addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                monthNames.clear();
+                for (DataSnapshot monthSnapshot : dataSnapshot.child("calendar").getChildren()) {
+                        String monthlyExpense = monthSnapshot.getKey();
+                        monthNames.add(monthlyExpense);
+                }
+
+                // notify the spinner that data may have changed
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
     private  void createNewDBListener() {
@@ -96,16 +117,6 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
 
     public void clicked(View view) {
         switch (view.getId()) {
-            case R.id.bSearch:
-                if (!currentMonth.isEmpty()) {
-                    // save text to lower case (all our months are stored online in lower case)
-                    entries.setText("Searching ...");
-                    savePreferences();
-                    createNewDBListener();
-                } else {
-                    Toast.makeText(this, "Search field may not be empty", Toast.LENGTH_SHORT).show();
-                }
-                break;
             case R.id.bUpdate:
                 if(currentMonth.isEmpty()){
                     Toast.makeText(this, "Search field may not be empty", Toast.LENGTH_SHORT).show();
@@ -116,7 +127,6 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
                 }else{
                     insertData();
                 }
-
                 break;
         }
     }
@@ -130,6 +140,9 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
         currentMonth = parent.getItemAtPosition(position).toString().toLowerCase();
+        entries.setText("Searching ...");
+        savePreferences();
+        createNewDBListener();
     }
 
     @Override
