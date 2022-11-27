@@ -58,6 +58,8 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
         searchRes.setAdapter(adapter);
         searchRes.setOnItemSelectedListener(this);
 
+
+
         entries = findViewById(R.id.tStatus);
         income =  findViewById(R.id.eIncome);
         expenses =  findViewById(R.id.eExpenses);
@@ -81,6 +83,8 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+
+        searchRes.setSelection(prefsUser.getInt("spinnerPosition",0));
     }
 
     private  void createNewDBListener() {
@@ -135,6 +139,7 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
         MonthlyExpenses item = new MonthlyExpenses(currentMonth, Float.parseFloat(income.getText().toString()), Float.parseFloat(expenses.getText().toString()));
         entries.setText("Updating ...");
         databaseReference.child("calendar").child(currentMonth).setValue(item);
+        entries.setText("Updated");
     }
 
     @Override
@@ -152,10 +157,8 @@ public class WalletActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void savePreferences(){
         SharedPreferences.Editor editor = prefsUser.edit();
-        editor.putString("month", currentMonth);
-        editor.putString("income", income.getText().toString());
-        editor.putString("expenses", expenses.getText().toString());
-        editor.commit();
+        editor.putInt("spinnerPosition", searchRes.getSelectedItemPosition());
+        editor.apply();
     }
 
 }
