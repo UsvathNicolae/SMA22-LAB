@@ -1,4 +1,4 @@
-package com.example.myapplication.SmartWallet.model;
+package com.example.myapplication.smartWallet.model;
 
 public class MonthlyExpenses {
     public  String month;

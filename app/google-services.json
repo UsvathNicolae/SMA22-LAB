@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "325221268561",
-    "project_id": "smartwallet-42c29",
-    "storage_bucket": "smartwallet-42c29.appspot.com"
+    "project_number": "974524111791",
+    "project_id": "smartwallet-c4f00",
+    "storage_bucket": "smartwallet-c4f00.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:325221268561:android:90c738fbcd8725dff20c70",
+        "mobilesdk_app_id": "1:974524111791:android:f1d70ef154711f3440ad5a",
         "android_client_info": {
-          "package_name": "com.example.myapplication.smartWallet"
+          "package_name": "com.example.myapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "325221268561-5v313jc6vsqm1dt819b6u5qjn96dm8bg.apps.googleusercontent.com",
+          "client_id": "974524111791-9i7fan77qpgq332sg87k5rs0tj5a1r67.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "f012bdd1f4695cb17d3165bb0e7ce707d7ccecdd"
+          }
+        },
+        {
+          "client_id": "974524111791-a6l0tvpv29booe5299nkilqeovu3onqa.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDQH7COcoLMkvnAWXByjUiiu5S2xKjjVoM"
+          "current_key": "AIzaSyBARf4JQGcnnDvg_3AUF2U6pNml6RaAeeo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "325221268561-5v313jc6vsqm1dt819b6u5qjn96dm8bg.apps.googleusercontent.com",
+              "client_id": "974524111791-a6l0tvpv29booe5299nkilqeovu3onqa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

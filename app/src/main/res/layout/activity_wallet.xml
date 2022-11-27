@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SmartWallet.WalletActivity">
+    tools:context=".smartWallet.WalletActivity">
 
     <TextView
         android:id="@+id/tStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
-        android:hint="No entries found for January"
+        android:hint="Enter a month and search!"
         app:layout_constraintBottom_toTopOf="@+id/lStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
@@ -79,12 +79,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="-134dp">
 
-        <EditText
+        <Spinner
             android:id="@+id/eSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.6"
-            android:hint="January" />
+            />
 
         <Button
             android:id="@+id/bSearch"
@@ -94,4 +94,5 @@
             android:onClick="clicked"
             android:text="Search" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
