@@ -13,7 +13,7 @@ public class Payment {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public Payment(double cost, String name, String type, String timestamp){
+    public Payment(String timestamp, double cost, String name, String type){
         this.timestamp = timestamp;
         this.cost = cost;
         this.name = name;

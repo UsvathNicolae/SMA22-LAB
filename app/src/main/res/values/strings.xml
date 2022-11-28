@@ -24,4 +24,10 @@
         <item>November</item>
         <item>December</item>
     </string-array>
+    <string-array name="payment">
+        <item>entertainment</item>
+        <item>food</item>
+        <item>taxes</item>
+        <item>travel</item>
+    </string-array>
 </resources>
