@@ -6,6 +6,7 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,7 +19,6 @@ import com.example.myapplication.smartWallet.ui.PaymentAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -29,7 +29,6 @@ import java.util.List;
 
 public class MainWallet extends AppCompatActivity {
 
-        private DatabaseReference databaseReference;
         private int currentMonth;
         private List<Payment> payments = new ArrayList<>();
         private TextView tStatus;
@@ -73,10 +72,19 @@ public class MainWallet extends AppCompatActivity {
             PaymentAdapter adaptor = new PaymentAdapter(this,R.layout.payment_item, payments);
             listView.setAdapter(adaptor);
 
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    //Toast.makeText(getApplicationContext(), "Clicked on " + payments.get(i), Toast.LENGTH_SHORT).show();
+                    AppState.get().setCurrentPayment(payments.get(i));
+                    startActivity(new Intent(getApplicationContext(), AddPaymentActivity.class));
+                    recreate();
+                }
+            });
 
-            databaseReference = FirebaseDatabase.getInstance().getReference("wallet");
+            AppState.get().setDatabaseReference(FirebaseDatabase.getInstance().getReference("wallet"));
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
+            AppState.get().getDatabaseReference().addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

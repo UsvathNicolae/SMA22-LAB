@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -34,8 +35,8 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="88dp"
             android:layout_below="@+id/lHeader"
             android:padding="4dp">
 
@@ -43,14 +44,14 @@
                 android:id="@+id/tDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Date: 2016-10-26"/>
+                android:hint="Date: 2016-10-26" />
 
             <TextView
                 android:id="@+id/tTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tDate"
-                android:hint="Time: 11:15:05"/>
+                android:hint="Time: 11:15:05" />
 
             <TextView
                 android:id="@+id/tCost"
@@ -59,16 +60,46 @@
                 android:layout_alignParentRight="true"
                 android:hint="12.5"
                 android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_below="@+id/tCost"
+                android:layout_alignParentRight="true"
                 android:hint="food"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="2dp">
+
+                <ImageView
+                    android:id="@+id/iEdit"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@color/blue"
+                    android:src="@drawable/ic_edit"
+                    android:layout_marginRight="10dp"
+                    android:padding="2dp"/>
+
+                <ImageView
+                    android:id="@+id/iDelete"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@color/blue"
+                    android:src="@drawable/ic_delete"
+                    android:padding="2dp"/>
+
+            </LinearLayout>
+
+
         </RelativeLayout>
+
     </RelativeLayout>
+
 </androidx.cardview.widget.CardView>
