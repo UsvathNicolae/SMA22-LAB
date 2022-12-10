@@ -19,19 +19,20 @@
 
         <ImageView
             android:id="@+id/icon"
-            style="@style/ThemeOverlay.FirebaseIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tStatus"
-            style="@style/ThemeOverlay.MyTextDetail"
-            android:hint="Signed out"/>
+            android:hint="Signed out"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"/>
 
         <TextView
             android:id="@+id/tDetail"
-            style="@style/ThemeOverlay.MyTextDetail"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             tools:hint="Firebase User ID: 123456789abc"/>
 
         <ProgressBar
@@ -39,7 +40,7 @@
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/progress_bar"/>
+            />
     </LinearLayout>
 
 
@@ -99,6 +100,7 @@
                 android:layout_weight="1"
                 android:onClick="clicked"
                 android:text="Register"/>
+
         </LinearLayout>
 
         <Button
@@ -109,6 +111,19 @@
             android:onClick="clicked"
             android:text="Sign out"
             android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/bGoogleSignIn"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lSignIn"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="19dp"
+            android:onClick="clicked"
+            android:text="Sign In with your google account" />
 
     </RelativeLayout>
 </LinearLayout>

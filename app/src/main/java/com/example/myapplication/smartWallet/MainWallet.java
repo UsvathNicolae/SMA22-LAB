@@ -41,7 +41,7 @@ public class MainWallet extends AppCompatActivity {
     private int currentMonth;
     private List<Payment> payments = new ArrayList<>();
     private TextView tStatus;
-    private Button bNext, nPrevious;
+    private Button bNext, nPrevious, bSignOut;
     private FloatingActionButton fabAdd;
     private ListView listView;
     public static String months[] =
@@ -65,10 +65,10 @@ public class MainWallet extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 if (user != null) {
-                    TextView tLoginDetail = (TextView) findViewById(R.id.tLoginDetail);
-                    TextView tUser = (TextView) findViewById(R.id.tUser);
-                    tLoginDetail.setText("Firebase ID: " + user.getUid());
-                    tUser.setText("Email: " + user.getEmail());
+                   // TextView tLoginDetail = (TextView) findViewById(R.id.tLoginDetail);
+                   // TextView tUser = (TextView) findViewById(R.id.tUser);
+                   // tLoginDetail.setText("Firebase ID: " + user.getUid());
+                   // tUser.setText("Email: " + user.getEmail());
 
                     AppState.get().setUserId(user.getUid());
                     attachDBListener(user.getUid());
@@ -97,6 +97,7 @@ public class MainWallet extends AppCompatActivity {
 
         tStatus = (TextView) findViewById(R.id.tStatus);
         nPrevious = (Button) findViewById(R.id.bPrevious);
+        bSignOut = (Button) findViewById(R.id.bSignOut);
         bNext = (Button) findViewById(R.id.bNext);
         fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
         listView = (ListView) findViewById(R.id.listPayments);
@@ -146,6 +147,12 @@ public class MainWallet extends AppCompatActivity {
             }
         });
 
+        bSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAuth.signOut();
+            }
+        });
 
 
         fabAdd.setOnClickListener(new View.OnClickListener() {

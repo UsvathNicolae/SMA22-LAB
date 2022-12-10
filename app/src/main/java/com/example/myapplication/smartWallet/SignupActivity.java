@@ -3,6 +3,7 @@ package com.example.myapplication.smartWallet;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -122,6 +124,14 @@ public class SignupActivity extends Activity {
                         if (!task.isSuccessful()) {
                             tStatus.setText("Authentication failed");
                         }
+
+                        Intent intent = new Intent(getApplicationContext(), MainWallet.class);
+                        intent.putExtra("user", email);
+                        intent.putExtra("pass", password);
+                        setResult(RESULT_OK);
+                        finish();
+
+
                         hideProgressDialog();
                     }
                 });
@@ -173,6 +183,13 @@ public class SignupActivity extends Activity {
         }
     }
 
+    private void googleSignIn(){
+        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+    }
+
     public void clicked(View v) {
         switch (v.getId()) {
             case R.id.bRegister:
@@ -183,6 +200,9 @@ public class SignupActivity extends Activity {
                 break;
             case R.id.bSignOut:
                 signOut();
+                break;
+            case R.id.bGoogleSignIn:
+                googleSignIn();
                 break;
         }
     }
