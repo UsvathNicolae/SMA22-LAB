@@ -87,14 +87,13 @@ public class MainWallet extends AppCompatActivity {
             if (!AppState.isNetworkAvailable(this)) {
                 // has local storage already
                 if (AppState.get().hasLocalStorage(this)) {
-                    payments = AppState.loadFromLocalBackup(this, months[currentMonth]);
+                   // payments = AppState.loadFromLocalBackup(this, months[currentMonth]);
                     tStatus.setText("Found " + payments.size() + " payments for " + months[currentMonth] + ".");
                 } else {
                     Toast.makeText(this, "This app needs an internet connection!", Toast.LENGTH_SHORT).show();
                     return;
                 }
             }else {
-
 
                 AppState.get().setDatabaseReference(FirebaseDatabase.getInstance().getReference("wallet"));
 
@@ -106,6 +105,7 @@ public class MainWallet extends AppCompatActivity {
                         payments.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             Payment payment = dataSnapshot.getValue(Payment.class);
+                            //AppState.updateLocalBackup(MainWallet.this,payment,true);
                             if (payment != null) {
                                 if (currentMonth == Integer.parseInt(payment.timestamp.substring(5, 7))) {
                                     payments.add(payment);

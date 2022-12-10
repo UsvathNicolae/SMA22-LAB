@@ -6,6 +6,7 @@ import static java.lang.Integer.parseInt;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class AppState {
 
         try {
             if (toAdd) {
-                FileOutputStream fos = context.openFileOutput(fileName,Context.MODE_PRIVATE);
+                FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
                 os.writeObject(payment.copy());
                 os.close();
@@ -82,8 +83,8 @@ public class AppState {
                 FileInputStream fis = context.openFileInput(file.getName());
                 ObjectInputStream is = new ObjectInputStream(fis);
                 Payment payment = (Payment) is.readObject();
-                if (month.equals(MainWallet.months[parseInt(getCurrentTime().substring(5,7))])) {
-                        payments.add(payment);
+                if (month.equals(MainWallet.months[parseInt(getCurrentTime().substring(5, 7))])) {
+                    payments.add(payment);
                 }
                 is.close();
                 fis.close();
@@ -99,8 +100,7 @@ public class AppState {
     }
 
     public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
