@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -35,7 +36,7 @@ public class MainWallet extends AppCompatActivity {
         private Button bNext, nPrevious;
         private FloatingActionButton fabAdd;
         private ListView listView;
-        private static String months[] =
+        public static String months[] =
             {
                     null , "January" , "February" , "March" , "April", "May",
                     "June", "July", "August", "September", "October",
@@ -47,6 +48,7 @@ public class MainWallet extends AppCompatActivity {
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_main_wallet);
+
 
             SharedPreferences pref = getSharedPreferences("pref", 0);
             currentMonth = pref.getInt("month", -1);
@@ -82,33 +84,45 @@ public class MainWallet extends AppCompatActivity {
                 }
             });
 
-            AppState.get().setDatabaseReference(FirebaseDatabase.getInstance().getReference("wallet"));
+            if (!AppState.isNetworkAvailable(this)) {
+                // has local storage already
+                if (AppState.get().hasLocalStorage(this)) {
+                    payments = AppState.loadFromLocalBackup(this, months[currentMonth]);
+                    tStatus.setText("Found " + payments.size() + " payments for " + months[currentMonth] + ".");
+                } else {
+                    Toast.makeText(this, "This app needs an internet connection!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }else {
 
-            AppState.get().getDatabaseReference().addValueEventListener(new ValueEventListener() {
 
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    int count = 0;
-                    payments.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                    {
-                        Payment payment = dataSnapshot.getValue(Payment.class);
-                        if(payment!= null){
-                            if(currentMonth == Integer.parseInt(payment.timestamp.substring(5,7))){
-                                payments.add(payment);
-                                count ++;
+                AppState.get().setDatabaseReference(FirebaseDatabase.getInstance().getReference("wallet"));
+
+                AppState.get().getDatabaseReference().addValueEventListener(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        int count = 0;
+                        payments.clear();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            Payment payment = dataSnapshot.getValue(Payment.class);
+                            if (payment != null) {
+                                if (currentMonth == Integer.parseInt(payment.timestamp.substring(5, 7))) {
+                                    payments.add(payment);
+                                    count++;
+                                }
                             }
                         }
+                        tStatus.setText("Found " + count + " items for " + months[currentMonth]);
+
                     }
-                    tStatus.setText("Found " + count + " items for " + months[currentMonth]);
 
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+                    }
+                });
+            }
 
             bNext.setOnClickListener(new View.OnClickListener() {
                 @Override

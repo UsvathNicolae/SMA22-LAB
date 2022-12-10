@@ -2,7 +2,10 @@ package com.example.myapplication.smartWallet.model;
 
 import android.icu.text.SimpleDateFormat;
 
-public class Payment {
+import java.io.Serializable;
+import java.util.Objects;
+
+public class Payment implements Serializable {
 
     public String timestamp;
     private double cost;
@@ -42,5 +45,10 @@ public class Payment {
 
     public void setType(String type){
         this.type = type;
+    }
+
+    public Object copy() {
+        Payment p = new Payment(this.timestamp, this.cost, this.name, this.type);
+        return p;
     }
 }
