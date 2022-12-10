@@ -56,6 +56,7 @@ public class AppState {
     public static void updateLocalBackup(Context context, Payment payment, boolean toAdd) {
         String fileName = payment.timestamp;
 
+
         try {
             if (toAdd) {
                 FileOutputStream fos = context.openFileOutput(fileName, Context.MODE_PRIVATE);
