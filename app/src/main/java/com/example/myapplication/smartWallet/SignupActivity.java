@@ -15,12 +15,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.android.gms.auth.api.identity.SignInCredential;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class SignupActivity extends Activity {
 
@@ -32,6 +39,8 @@ public class SignupActivity extends Activity {
     private EditText eEmail;
     private EditText ePass;
     private ProgressBar pLoading;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient gsc;
 
     // Firebase
     private FirebaseAuth mAuth;
@@ -41,6 +50,12 @@ public class SignupActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+        gsc = GoogleSignIn.getClient(this,gso);
 
         // views
         tStatus = (TextView) findViewById(R.id.tStatus);
@@ -129,7 +144,7 @@ public class SignupActivity extends Activity {
                         intent.putExtra("user", email);
                         intent.putExtra("pass", password);
                         setResult(RESULT_OK);
-                        finish();
+                        //finish();
 
 
                         hideProgressDialog();
@@ -183,12 +198,53 @@ public class SignupActivity extends Activity {
         }
     }
 
-    private void googleSignIn(){
-        GoogleSignInOptions googleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+    private void googleSignIn() {
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent, 1000);
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+
+            GoogleSignInAccount acc = GoogleSignIn.getLastSignedInAccount(this);
+            if(acc!= null) {
+                if (acc.getIdToken() != null) {
+                    AuthCredential firebaseCredential = GoogleAuthProvider.getCredential(acc.getIdToken(), null);
+                    mAuth.signInWithCredential(firebaseCredential)
+                            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        Log.d(TAG, "signInWithCredential:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        updateUI(user);
+                                    } else {
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "signInWithCredential:failure", task.getException());
+                                        updateUI(null);
+                                    }
+                                }
+                            });
+                }else{
+                    //Toast.makeText(getApplicationContext(), "IDtoken null", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "" + acc.getIdToken() , Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
 
     public void clicked(View v) {
         switch (v.getId()) {
