@@ -20,6 +20,7 @@ import com.example.myapplication.smartWallet.ui.PaymentAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -83,19 +84,10 @@ public class MainWallet extends AppCompatActivity {
                     recreate();
                 }
             });
-
-            if (!AppState.isNetworkAvailable(this)) {
-                // has local storage already
-                if (AppState.get().hasLocalStorage(this)) {
-                   // payments = AppState.loadFromLocalBackup(this, months[currentMonth]);
-                    tStatus.setText("Found " + payments.size() + " payments for " + months[currentMonth] + ".");
-                } else {
-                    Toast.makeText(this, "This app needs an internet connection!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-            }else {
-
-                AppState.get().setDatabaseReference(FirebaseDatabase.getInstance().getReference("wallet"));
+                DatabaseReference databaseReference;
+                databaseReference = FirebaseDatabase.getInstance().getReference("walllet");
+                databaseReference.keepSynced(true);
+                AppState.get().setDatabaseReference(databaseReference);
 
                 AppState.get().getDatabaseReference().addValueEventListener(new ValueEventListener() {
 
@@ -122,7 +114,6 @@ public class MainWallet extends AppCompatActivity {
 
                     }
                 });
-            }
 
             bNext.setOnClickListener(new View.OnClickListener() {
                 @Override
